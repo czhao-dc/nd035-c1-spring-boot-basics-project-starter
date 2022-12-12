@@ -8,6 +8,8 @@ public class CloudStorageApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CloudStorageApplication.class, args);
+		System.out.println("Let's inspect the beans provided by Spring Boot:");
 	}
+	
 
 }
