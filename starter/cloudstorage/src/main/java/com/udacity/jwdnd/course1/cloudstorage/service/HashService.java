@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage.services;
+package com.udacity.jwdnd.course1.cloudstorage.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-//@Service
+@Component
 public class HashService {
 
     public final Logger logger = LoggerFactory.getLogger(HashService.class);

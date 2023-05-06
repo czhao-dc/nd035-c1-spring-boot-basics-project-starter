@@ -1,25 +1,28 @@
-package com.udacity.jwdnd.course1.cloudstorage.services;
+package com.udacity.jwdnd.course1.cloudstorage.service;
+
 
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
+import com.udacity.jwdnd.course1.cloudstorage.model.*;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Service;
-import com.udacity.jwdnd.course1.cloudstorage.model.*;
 
+
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 
 @Service
 public class AuthenticationService implements AuthenticationProvider {
-    //private UserMapper userMapper;
-    //private HashService hashService;
+    private UserMapper userMapper;
+    private HashService hashService;
 
-    //public AuthenticationService(UserMapper userMapper, HashService hashService) {
-    public AuthenticationService() {
-        //this.userMapper = userMapper;
-        //this.hashService = hashService;
+    public AuthenticationService(UserMapper userMapper, HashService hashService) {
+
+        this.userMapper = userMapper;
+        this.hashService = hashService;
 
     }
     @Override
@@ -29,16 +32,15 @@ public class AuthenticationService implements AuthenticationProvider {
 
 
 
-        //User user = userMapper.getUser(username);
+        User user = userMapper.getUser(username);
 
-        //if (user != null) {
-        //    String encodedSalt = user.getSalt();
-        //    String hashedPassword = hashService.getHashedValue(password, encodedSalt);
-            if (password.equals("love")) {
-                System.out.println("password matches");
+        if (user != null) {
+            String encodedSalt = user.getSalt();
+            String hashedPassword = hashService.getHashedValue(password, encodedSalt);
+            if (user.getPassword().equals(hashedPassword)) {
                 return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
             }
-        //}
+        }
 
 
         return null;

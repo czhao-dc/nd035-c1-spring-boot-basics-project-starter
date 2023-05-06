@@ -17,13 +17,13 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/applogin")
-    public String getUser(Model model) {
+    //@GetMapping("/applogin")
+    //public String getUser(Model model) {
     //    User user = new User(username:"pa", password:"sa")
-        model.addAttribute("user", new User());
-        return "login";
+    //    model.addAttribute("user", new User());
+    //    return "login";
 
-    }
+    //}
 
     @PostMapping("/handleSubmit")
     public String submitUser(User user) {
