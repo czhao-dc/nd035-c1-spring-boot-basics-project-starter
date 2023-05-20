@@ -3,6 +3,7 @@ import com.udacity.jwdnd.course1.cloudstorage.mapper.FileMapper;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import com.udacity.jwdnd.course1.cloudstorage.model.*;
+//import org.graalvm.compiler.bytecode.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,10 @@ public class FileService {
 
 
     //}
+
+    public File downloadFilesByFileId(Integer fileId) {
+        //
+        return fileMapper.downloadFilesByFileId(fileId);
+    }
 
 }

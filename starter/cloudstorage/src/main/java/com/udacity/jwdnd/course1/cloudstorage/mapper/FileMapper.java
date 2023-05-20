@@ -5,8 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import com.udacity.jwdnd.course1.cloudstorage.model.*;
+import org.springframework.core.io.InputStreamResource;
 
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 @Mapper
@@ -21,6 +23,6 @@ public interface FileMapper {
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
     int insert(File file);
 
-    @Select("SELECT filedata FROM FILES WHERE fileId = #{fileId)")
-    byte[] getFile(Integer fileId);
+    @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
+    File downloadFilesByFileId(Integer fileId);
 }
