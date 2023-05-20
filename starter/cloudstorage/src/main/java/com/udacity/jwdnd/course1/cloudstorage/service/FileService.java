@@ -53,4 +53,9 @@ public class FileService {
         return fileMapper.downloadFilesByFileId(fileId);
     }
 
+    public boolean deleteFileByFileId(Integer fileId) {
+
+        return fileMapper.deleteFileByFileId(fileId);
+    }
+
 }

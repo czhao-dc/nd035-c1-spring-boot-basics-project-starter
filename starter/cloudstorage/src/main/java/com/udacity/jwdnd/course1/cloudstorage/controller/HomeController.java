@@ -71,6 +71,7 @@ public class HomeController {
     }
 
     //@RequestMapping()
+    //Source = https://knowledge.udacity.com/questions/830529
     @GetMapping (value = "/files/download_file/{fileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody ResponseEntity<byte[]> downloadFile(@PathVariable Integer fileId) throws IOException {
         //return fileService.downloadFilesByFileId(fileId);
@@ -82,5 +83,19 @@ public class HomeController {
                 .contentType(MediaType.parseMediaType(file.getContenttype()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileName+"\"")
                 .body(file.getFiledata());
+    }
+
+
+    @GetMapping("/files/delete_file/{fileId}")
+    public String deleteFile(Authentication authentication,
+                             @PathVariable Integer fileId,
+                             Model model) {
+        String userName = authentication.getName();
+        User user = userService.getUser(userName);
+        Integer userId = user.getUserId();
+        fileService.deleteFileByFileId(fileId);
+        model.addAttribute("uploadedFiles", fileService.getFilesByUserId(userId));
+        model.addAttribute("successful", true);
+        return "redirect:/home";
     }
 }

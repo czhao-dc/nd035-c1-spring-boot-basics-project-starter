@@ -52,7 +52,7 @@
                                 <tr th:each="uploadedFilesItems: ${uploadedFiles}">
                                     <td>
                                         <a th:href="@{/files/download_file/{fileId}(fileId=${uploadedFilesItems.fileId})}" method = 'Get' target="_blank" class="btn btn-success">View</a>
-                                        <a  class="btn btn-danger">Delete</a>
+                                        <a th:href="@{/files/delete_file/{fileId}(fileId=${uploadedFilesItems.fileId})}" method = 'Get' class="btn btn-danger">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${uploadedFilesItems.filename}"></th>
                                 </tr>
