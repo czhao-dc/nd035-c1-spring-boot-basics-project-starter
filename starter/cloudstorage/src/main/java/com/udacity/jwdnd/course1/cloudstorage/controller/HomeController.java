@@ -9,12 +9,13 @@ import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Controller
 @RequestMapping("/home")
@@ -46,15 +47,13 @@ public class HomeController {
 
 
     @PostMapping()
-    public String uploadFile(File file, Authentication authentication) {
-
-        //uploadedFiles.add(file);
-        fileService.uploadFile(file, authentication);
-        //uploadedFiles.add(new File(null, file.getFilename(),file.getContenttype(),file.getFilesize(),file.getUserId(),file.getFiledata()));
-        //model.addAttribute("files")
-        //System.out.println(uploadedFiles.get(0).getFilename());
+    public String uploadFile(@RequestParam("fileUpload") MultipartFile fileUpload,Authentication authentication) throws IOException, IllegalStateException {
 
 
+        //InputStream fis = fileUpload.getInputStream();
+        Integer currUserID = userService.getUser(authentication.getName()).getUserId();
+        //String fileOriginalName = fis.readAllBytes().
+        fileService.uploadFile(fileUpload, currUserID);
 
         return "redirect:/home";
     }
@@ -62,27 +61,14 @@ public class HomeController {
 
     @GetMapping()
     public String displayFile(@ModelAttribute User user, Model model,Authentication authentication) {
-        //fileService.uploadFile(new File(null, "test.txt","txt","15kb",1,"testdata"));
-        //uploadedFiles.add(new File(null, "test.txt","txt","15kb",1,"testdata"));
-        //uploadedFiles.add(new File(null, "test1.txt","txt","15kb",1,"testdata"));
-        //model.addAttribute("uploadedFiles",uploadedFiles);
-
-
-        //model.addAttribute("uploadedFiles",fileService.displayFile());
-        //User curr = userService.getUser(authentication.getName());
-        //System.out.println(authentication.getName().getClass().getSimpleName());
-        //System.out.println(authentication.getName());
-        //model.addAttribute("uploadedFiles",fileService.getFilesByUserId("zcttony"));
-        //System.out.println(fileService.getFilesByUserId("zcttony"));
-        //System.out.println(authentication.getName());
-        //fileService.getFilesByUserId('zcttony');
 
         User curr = userService.getUser(authentication.getName());
 
-        //System.out.println(curr.getUserId());
-        //System.out.println(curr.getUsername());
+
         model.addAttribute("uploadedFiles",fileService.getFilesByUserId(curr.getUserId()));
-        //System.out.println(fileService.getFilesByUserId("zcttony"));
+        
         return "home";
     }
+
+    @GetMapping()
 }

@@ -7,9 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.ArrayList;
+import org.springframework.web.multipart.MultipartFile;
+
 @Service
 public class FileService {
     private final FileMapper fileMapper;
@@ -20,9 +25,14 @@ public class FileService {
         this.userService = userService;
     }
 
-    public int uploadFile(File file, Authentication authentication) {
-        User curr = userService.getUser(authentication.getName());
-        return fileMapper.insert(new File(null, "zcttony", "txt", "125kb",curr.getUserId()));
+    public int uploadFile(MultipartFile file, Integer currUserID) throws IOException, IllegalStateException  {
+        System.out.println(file);
+
+        byte[] bytes = file.getBytes();
+        InputStream fis = file.getInputStream();
+        //User curr = userService.getUser(authentication.getName());
+        //String fileName = multipartFile.getOriginalFilename();
+        return fileMapper.insert(new File(null, file.getOriginalFilename(), file.getContentType(), file.getSize(),currUserID,bytes));
         //return fileMapper.insert(new File(null, file.getFilename(), file.getContenttype(), file.getFilesize(), file.getUserId(),file.getFiledata()));
     }
 
