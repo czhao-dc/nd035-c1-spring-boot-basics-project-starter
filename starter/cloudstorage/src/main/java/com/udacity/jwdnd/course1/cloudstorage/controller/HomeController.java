@@ -3,8 +3,11 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
+import com.udacity.jwdnd.course1.cloudstorage.model.Note;
+import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
+import com.udacity.jwdnd.course1.cloudstorage.service.NoteService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +29,17 @@ public class HomeController {
     //}
     private final FileService fileService;
     private UserService userService;
+
+    private NoteService noteService;
     private UserMapper userMapper;
 
 
 
 
-    public HomeController(FileService fileService, UserService userService, UserMapper userMapper) {
+    public HomeController(FileService fileService, UserService userService, UserMapper userMapper,NoteService noteService) {
         this.fileService = fileService;
         this.userService = userService;
+        this.noteService = noteService;
         this.userMapper = userMapper;
 
 
@@ -43,6 +49,7 @@ public class HomeController {
     //    return "home";
     //}
     ArrayList<File> uploadedFiles = new ArrayList<>();
+    ArrayList<Note> uploadedNotes = new ArrayList<>();
 
 
     //@RequestMapping("/home")
@@ -60,7 +67,7 @@ public class HomeController {
 
     //@RequestMapping("/home")
     @GetMapping("/home")
-    public String displayFile(@ModelAttribute User user, Model model,Authentication authentication) {
+    public String displayFile(@ModelAttribute User user, Model model,Authentication authentication, @ModelAttribute("newNote") NoteForm newNote) {
 
         User curr = userService.getUser(authentication.getName());
 
@@ -98,4 +105,7 @@ public class HomeController {
         model.addAttribute("successful", true);
         return "redirect:/home";
     }
+
+
+
 }
