@@ -49,7 +49,7 @@ public class HomeController {
     //    return "home";
     //}
     ArrayList<File> uploadedFiles = new ArrayList<>();
-    ArrayList<Note> uploadedNotes = new ArrayList<>();
+    ArrayList<Note> notes = new ArrayList<>();
 
 
     //@RequestMapping("/home")
@@ -67,13 +67,13 @@ public class HomeController {
 
     //@RequestMapping("/home")
     @GetMapping("/home")
-    public String displayFile(@ModelAttribute User user, Model model,Authentication authentication, @ModelAttribute("newNote") NoteForm newNote) {
+    public String displayFile(@ModelAttribute User user, Model model,Authentication authentication,@ModelAttribute("newNote") NoteForm newNote) {
 
         User curr = userService.getUser(authentication.getName());
 
 
         model.addAttribute("uploadedFiles",fileService.getFilesByUserId(curr.getUserId()));
-
+        model.addAttribute("notes", noteService.getNotesByUserId(curr.getUserId()));
         return "home";
     }
 
@@ -105,6 +105,8 @@ public class HomeController {
         model.addAttribute("successful", true);
         return "redirect:/home";
     }
+
+
 
 
 

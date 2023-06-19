@@ -75,13 +75,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="uploadedNotesItems: ${uploadedNotes}">
+                                    <tr th:each="uploadedNotesItems: ${notes}">
                                         <td>
                                             <button type="button" class="btn btn-success">Edit</button>
                                             <a class="btn btn-danger">Delete</a>
                                         </td>
                                         <th scope="row" th:text="${uploadedNotesItems.title}"></th>
-                                        <td> </td>
+                                        <td th:text="${uploadedNotesItems.description}"></td>
+
                                     </tr>
                                 </tbody>
                             </table>
