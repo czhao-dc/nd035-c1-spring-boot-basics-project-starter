@@ -27,6 +27,7 @@ public class NoteService {
     }
     //Source: knowledge
     public int uploadNote(Note note) {
+        //source https://knowledge.udacity.com/questions/433666 + https://github.com/ploratran/SuperDuperDrive
         if (note.getNoteId() == null) {
             return noteMapper.insert(note);
             //return noteMapper.insert(new Note(null,"123","123", currUserID));
@@ -36,8 +37,12 @@ public class NoteService {
 
     }
 
-    //public int updateNote(Note note) {
-    //    return noteMapper.updateNote(new Note(note.getNoteId(), note.getTitle(), note.getDescription(), note.getUserId()));
-    //}
+    public int updateNote(Note note) {
+        return noteMapper.updateNote(new Note(note.getNoteId(), note.getTitle(), note.getDescription(), note.getUserId()));
+    }
+
+    public int deleteNote(int noteId) {
+        return noteMapper.deleteNoteByNoteId(noteId);
+    }
 
 }

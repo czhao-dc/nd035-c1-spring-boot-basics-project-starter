@@ -67,5 +67,18 @@ public class NotesController {
         //User curr = userService.getUser(authentication.getName());
     //    noteService.updateNote(note);
     //    return "redirect:/home";
-    //}
+    //
+    //
+    // }
+
+    @GetMapping("/delete/{noteId}")
+    public String deleteNote(@PathVariable("noteId") int noteId) {
+
+        //String errorMessage = null;
+
+        int deletedNoteId = noteService.deleteNote(noteId);
+        return "redirect:/home";
+
+
+    }
 }

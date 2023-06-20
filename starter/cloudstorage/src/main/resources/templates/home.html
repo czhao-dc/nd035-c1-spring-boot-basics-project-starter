@@ -81,7 +81,7 @@
                                                     th:noteDescription="${uploadedNotesItems.description}"
                                                     th:onclick="showNoteModal([[${uploadedNotesItems.noteId}]],[[${uploadedNotesItems.title}]], [[${uploadedNotesItems.description}]])"
                                             >Edit</button>
-                                            <a class="btn btn-danger">Delete</a>
+                                            <a class="btn btn-danger" th:href="@{/notes/delete/{noteId}(noteId=${uploadedNotesItems.noteId})}">Delete</a>
                                         </td>
                                         <th scope="row" th:text="${uploadedNotesItems.title}"></th>
                                         <td th:text="${uploadedNotesItems.description}"></td>
