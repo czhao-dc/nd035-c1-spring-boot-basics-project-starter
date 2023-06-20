@@ -77,7 +77,10 @@
                                 <tbody>
                                     <tr th:each="uploadedNotesItems: ${notes}">
                                         <td>
-                                            <button type="button" class="btn btn-success">Edit</button>
+                                            <button type="button" class="btn btn-success" th:noteid="${uploadedNotesItems.noteId}" th:noteTitle="${uploadedNotesItems.title}"
+                                                    th:noteDescription="${uploadedNotesItems.description}"
+                                                    th:onclick="showNoteModal([[${uploadedNotesItems.noteId}]],[[${uploadedNotesItems.title}]], [[${uploadedNotesItems.description}]])"
+                                            >Edit</button>
                                             <a class="btn btn-danger">Delete</a>
                                         </td>
                                         <th scope="row" th:text="${uploadedNotesItems.title}"></th>
@@ -99,7 +102,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form action="#" method="POST" th:object="${newNote}" th:action="@{/notes/addnote}">
-                                            <input type="hidden" name="noteId" id="note-id">
+                                            <input type="hidden" name="noteId" id="note-id" th:field="*{noteId}">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
                                                 <input th:field="*{title}" type="text" name= "title" class="form-control" id="note-title" maxlength="20" required>
@@ -199,6 +202,13 @@
                 $('#note-title').val(noteTitle ? noteTitle : '');
                 $('#note-description').val(noteDescription ? noteDescription : '');
                 $('#noteModal').modal('show');
+            }
+
+            function editShowNoteModal(noteId, noteTitle, noteDescription) {
+                $('#edit-note-id').val(noteId ? noteId : '');
+                $('#edit-note-title').val(noteTitle ? noteTitle : '');
+                $('#edit-note-description').val(noteDescription ? noteDescription : '');
+                $('#editNoteModal').modal('show');
             }
 
             // For opening the credentials modal

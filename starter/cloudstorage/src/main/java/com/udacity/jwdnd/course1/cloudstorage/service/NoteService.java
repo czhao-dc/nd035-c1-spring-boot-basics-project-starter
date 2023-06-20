@@ -26,10 +26,18 @@ public class NoteService {
         return noteMapper.getNotesByUserId(userid);
     }
     //Source: knowledge
-    public int uploadNote(Note note)  {
+    public int uploadNote(Note note) {
+        if (note.getNoteId() == null) {
+            return noteMapper.insert(note);
+            //return noteMapper.insert(new Note(null,"123","123", currUserID));
+        } else {
+            return noteMapper.updateNote(new Note(note.getNoteId(), note.getTitle(), note.getDescription(), note.getUserId()));
+        }
 
-        return noteMapper.insert(note);
-        //return noteMapper.insert(new Note(null,"123","123", currUserID));
     }
+
+    //public int updateNote(Note note) {
+    //    return noteMapper.updateNote(new Note(note.getNoteId(), note.getTitle(), note.getDescription(), note.getUserId()));
+    //}
 
 }

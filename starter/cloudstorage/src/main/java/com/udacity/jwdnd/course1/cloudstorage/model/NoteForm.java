@@ -5,11 +5,22 @@ public class NoteForm {
     private String description;
 
     private Integer userId;
+    private Integer noteId;
 
-    public NoteForm(String title, String description, Integer userId) {
+
+    public NoteForm(String title, String description, Integer userId, Integer noteId) {
         this.title = title;
         this.description = description;
         this.userId = userId;
+        this.noteId = noteId;
+
+    }
+    public Integer getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(Integer noteId) {
+        this.noteId = noteId;
     }
 
     public String getTitle() {

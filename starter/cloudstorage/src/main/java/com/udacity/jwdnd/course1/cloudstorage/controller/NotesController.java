@@ -31,6 +31,8 @@ public class NotesController {
         User user = userService.getUser(username);
         Note note = new Note();
         System.out.println("Note Title: " + newNote.getTitle());
+        Integer noteId = newNote.getNoteId();
+        note.setNoteId(noteId);
         String title = newNote.getTitle();
         note.setNoteTitle(title);
         System.out.println("Note Description: " + newNote.getDescription());
@@ -44,15 +46,26 @@ public class NotesController {
     }
 
     //Source knowledge
-    @GetMapping("/home")
-    public String getNotesList( User user, Authentication authentication, Model model) {
-        User curr = userService.getUser(authentication.getName());
+    //@GetMapping("/home")
+    //public String getNotesList( User user, Authentication authentication, Model model) {
+    //    User curr = userService.getUser(authentication.getName());
 
-        System.out.println("whatis");
-        System.out.println(model);
-        System.out.println(noteService.getNotesByUserId(curr.getUserId()).get(0).getTitle());
-        return "redirect:/home";
+    //    System.out.println("whatis");
+    //    System.out.println(model);
+    //    System.out.println(noteService.getNotesByUserId(curr.getUserId()).get(0).getTitle());
+    //    return "redirect:/home";
         //th:text="uploadedNotesItems.noteTitle"
         //th:each="uploadedNotesItems: ${notes}"
-    }
+    //}
+
+
+    //@PutMapping
+    //public String updateNote(Authentication authentication, @ModelAttribute("note") Note note, Model model){
+    //    System.out.println("Put method is called");
+        //User user = this.userMapper.getUsername(authentication.getName());
+        //note.setUserid(user.getUserId());
+        //User curr = userService.getUser(authentication.getName());
+    //    noteService.updateNote(note);
+    //    return "redirect:/home";
+    //}
 }
