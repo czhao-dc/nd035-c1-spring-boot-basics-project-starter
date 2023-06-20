@@ -140,7 +140,10 @@
                                 <tbody>
                                 <tr th:each="uploadedCredentialsItems: ${credentials}">
                                     <td>
-                                        <button type="button" class="btn btn-success">Edit</button>
+                                        <button type="button" class="btn btn-success"
+                                                th:credentialid="${uploadedCredentialsItems.credentialId}" th:url="${uploadedCredentialsItems.url}"
+                                                th:username="${uploadedCredentialsItems.username}" th:password="${uploadedCredentialsItems.password}"
+                                                th:onclick="showCredentialModal([[${uploadedCredentialsItems.credentialId}]],[[${uploadedCredentialsItems.url}]], [[${uploadedCredentialsItems.username}]],[[${uploadedCredentialsItems.password}]])">Edit</button>
                                         <a class="btn btn-danger">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${uploadedCredentialsItems.url}">Example Credential URL</th>

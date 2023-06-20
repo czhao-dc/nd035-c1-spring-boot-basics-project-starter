@@ -24,13 +24,13 @@ public class CredentialService {
 
     public int uploadCredential(Credential credential,Integer currUserID) {
         //source https://knowledge.udacity.com/questions/433666 + https://github.com/ploratran/SuperDuperDrive
-        //if (credential.getCredentialId() == null) {
-        return credentialMapper.insert(new Credential(credential.getCredentialId(),credential.getUrl(), credential.getUsername(), credential.getPassword(),currUserID));
+        if (credential.getCredentialId() == null) {
+            return credentialMapper.insert(new Credential(credential.getCredentialId(), credential.getUrl(), credential.getUsername(), credential.getPassword(), currUserID));
             //return noteMapper.insert(new Note(null,"123","123", currUserID));
+        } else {
+            return credentialMapper.updateCredential(new Credential(credential.getCredentialId(), credential.getUrl(), credential.getUsername(), credential.getPassword(), currUserID));
         }
-        //else {
-        //    return credentialMapper.update(new Note(note.getNoteId(), note.getTitle(), note.getDescription(), note.getUserId()));
-        //}
+    }
 
 
 }
