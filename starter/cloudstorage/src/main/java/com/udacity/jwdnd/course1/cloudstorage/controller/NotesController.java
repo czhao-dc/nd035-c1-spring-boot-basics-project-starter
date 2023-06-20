@@ -73,7 +73,7 @@ public class NotesController {
 
     @GetMapping("/delete/{noteId}")
     public String deleteNote(@PathVariable("noteId") int noteId) {
-
+        //Source https://github.com/ploratran/SuperDuperDrive
         //String errorMessage = null;
 
         int deletedNoteId = noteService.deleteNote(noteId);

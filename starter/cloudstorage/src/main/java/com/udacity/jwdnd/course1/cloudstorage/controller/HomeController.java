@@ -5,9 +5,11 @@ import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
+import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import com.udacity.jwdnd.course1.cloudstorage.service.NoteService;
+import com.udacity.jwdnd.course1.cloudstorage.service.CredentialService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,16 +33,19 @@ public class HomeController {
     private UserService userService;
 
     private NoteService noteService;
+
+    private CredentialService credentialService;
     private UserMapper userMapper;
 
 
 
 
-    public HomeController(FileService fileService, UserService userService, UserMapper userMapper,NoteService noteService) {
+    public HomeController(FileService fileService, UserService userService, UserMapper userMapper,NoteService noteService, CredentialService credentialService) {
         this.fileService = fileService;
         this.userService = userService;
         this.noteService = noteService;
         this.userMapper = userMapper;
+        this.credentialService = credentialService;
 
 
     }
@@ -50,6 +55,7 @@ public class HomeController {
     //}
     ArrayList<File> uploadedFiles = new ArrayList<>();
     ArrayList<Note> notes = new ArrayList<>();
+    ArrayList<Credential> credentials = new ArrayList<>();
 
 
     //@RequestMapping("/home")
@@ -67,13 +73,14 @@ public class HomeController {
 
     //@RequestMapping("/home")
     @GetMapping("/home")
-    public String displayFile(@ModelAttribute User user, Model model,Authentication authentication,@ModelAttribute("newNote") NoteForm newNote) {
+    public String displayFile(@ModelAttribute User user, Model model,Authentication authentication,@ModelAttribute("newNote") NoteForm newNote, @ModelAttribute("newCredential") Credential newCredential) {
 
         User curr = userService.getUser(authentication.getName());
 
 
         model.addAttribute("uploadedFiles",fileService.getFilesByUserId(curr.getUserId()));
         model.addAttribute("notes", noteService.getNotesByUserId(curr.getUserId()));
+        model.addAttribute("credentials", credentialService.getCredentialsByUserId(curr.getUserId()));
         return "home";
     }
 
