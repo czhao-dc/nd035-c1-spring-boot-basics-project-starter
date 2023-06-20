@@ -31,6 +31,9 @@ public class CredentialService {
             return credentialMapper.updateCredential(new Credential(credential.getCredentialId(), credential.getUrl(), credential.getUsername(), credential.getPassword(), currUserID));
         }
     }
+    public int deleteCredential(int credentialId) {
+        return credentialMapper.deleteCredentialById(credentialId);
+    }
 
 
 }

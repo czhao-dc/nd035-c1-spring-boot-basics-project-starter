@@ -39,4 +39,14 @@ public class CredentialController {
         model.addAttribute("addNoteSuccess", true);
         return "redirect:/home";
     }
+    @GetMapping("/delete/{credentialId}")
+    public String deleteCredential(@PathVariable("credentialId") int credentialId) {
+        //Source https://github.com/ploratran/SuperDuperDrive
+        //String errorMessage = null;
+
+        int deletedCredentialId = credentialService.deleteCredential(credentialId);
+        return "redirect:/home";
+
+
+    }
 }

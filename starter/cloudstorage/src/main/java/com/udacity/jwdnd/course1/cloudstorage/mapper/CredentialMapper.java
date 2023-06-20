@@ -22,7 +22,7 @@ public interface CredentialMapper {
     int updateCredential(Credential credential);
 
     // DELETE a credential by credentialId:
-    @Delete("DELETE FROM CREDENTIALS WHERE credentialid=#{credentialId}")
+    @Delete("DELETE FROM CREDENTIALS WHERE credentialId=#{credentialId}")
     int deleteCredentialById(int credentialId);
 
     // GET a credential by its credentialId
